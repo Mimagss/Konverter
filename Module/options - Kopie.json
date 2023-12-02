@@ -1,0 +1,36 @@
+{
+    "options":{
+        "webm" : {
+            "outtmpl":"",
+            "noplaylist" : true,
+            "format":"bestvideo+bestaudio/best"
+        },
+        "mp4": {
+            "outtmpl":"",
+            "noplaylist" : true,
+            "format": "bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio"
+        },
+        "mp3": {
+            "outtmpl":"",
+            "format": "bestaudio/best",
+            "noplaylist" : true,
+            "postprocessors": [{
+                "key": "FFmpegExtractAudio",
+                "preferredcodec": "mp3"
+            }]
+        },
+        "wav":{
+            "outtmpl":"",
+            "format": "bestaudio/best",
+            "noplaylist" : true,
+            "postprocessors": [{
+                "key": "FFmpegExtractAudio",
+                "preferredcodec": "wav"
+            }]
+        }
+    },
+    "defaults":{
+        "path": "",
+        "codec":""
+    }
+}
