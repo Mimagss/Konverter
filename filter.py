@@ -2,7 +2,7 @@ import os
 from icecream import ic
 ic.configureOutput(prefix="Debug: ", includeContext=True)
 
-def write_youtube_links(file_path: str) -> None:
+def write_file(file_path: str) -> None:
     """
     Schreibt eine Liste von YouTube-Links in eine .txt-Datei, 
     wobei jeder Link in eine neue Zeile geschrieben wird.
@@ -20,7 +20,7 @@ def write_youtube_links(file_path: str) -> None:
         file.close()
         ic("file geschlossen")
 
-def read_youtube_links(file_path: str) -> list[str]:
+def read_file(file_path: str) -> list[str]:
     """Liest eine Datei ein und gibt eine Liste von YouTube-Links zurück."""
     try:
         with open(file_path, 'r', encoding='utf-8') as file:
@@ -48,10 +48,12 @@ def filter_duplicates(arg: list) -> list:
 if __name__ == "__main__":
     filename: str = "martinLieder"
     file_path: str = f"{os.path.dirname(__file__)}/{filename}.txt"
-    youtube_links: list = read_youtube_links(file_path)
+    youtube_links: list = read_file(file_path)
     new_links = filter_duplicates(youtube_links)
     
     for index, element in enumerate(new_links):
         ic(index, element)
         
-    write_youtube_links(file_path=f"{os.path.dirname(__file__)}/{filename}OhneDuplikate.txt")
+    write_file(file_path=f"{os.path.dirname(__file__)}/{filename}OhneDuplikate.txt")
+    
+    

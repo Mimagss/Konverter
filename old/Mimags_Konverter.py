@@ -3,6 +3,8 @@ from youtubesearchpython import *
 import yt_dlp
 import httpx
 import os
+from icecream import ic
+ic.configureOutput(prefix="Debug: ", includeContext=True)
 
 class Konverter:
     def __init__(self) -> None:
@@ -95,6 +97,11 @@ class Konverter:
         
         return infoDict
 
+    def getIndexFromList(self, list: list, arg) -> int:
+        for index, element in enumerate(list):
+            if element == arg:
+                return index
+
     def request(self, givenLinks : list, option : str, path : str = os.path.join(os.path.dirname(os.path.realpath(__file__))), logger : bool = False):
         """
         Sammelt alles nötige für den Download und gibt das dann zurück
@@ -123,8 +130,14 @@ class Konverter:
 
                     videosSearch = VideosSearch(element, limit= 1)
                     result : dict | str = videosSearch.result()           
-                    self.links.append(result['result'][0]['link'])
-                    self.titles.append(result['result'][0]['title'])
+                    if result['result'] == []:
+                        ic(element)
+                        ic(self.getIndexFromList(givenLinks, element))
+                        
+                    
+                    else:     
+                        self.links.append(result['result'][0]['link'])
+                        self.titles.append(result['result'][0]['title'])
                     
                 givenLinks.clear()
 
