@@ -165,6 +165,7 @@ if __name__ == "__main__":
     links = []
     links.append(str(input("Links bitte:")))
     konv.download(
-        links,
-        "mp4"
+        givenLinks=links,
+        option="mp3",
+        path= "C:/Users/Einbr/Downloads/niceMuke"
     )

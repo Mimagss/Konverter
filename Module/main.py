@@ -20,7 +20,7 @@ Titel = self.links[i]["Titel"]
 class Konverter:
     def __init__(
             self, 
-            links : list[dict[str]] = [{"Links":"", "Titel":""}], 
+            links : list[dict[str]] = [{"Link":"", "Titel":""}], 
             option : str | None = None, 
             path : str  = "/music", 
             debug : bool = False, 
@@ -70,13 +70,13 @@ class Konverter:
         #TODO: Renaming of local Variables
         try:
             for links in self.links:
-                if links['Links'].__contains__("&list"):
+                if links['Link'].__contains__("&list"):
                     result : dict | str | None = Playlist.getVideos(self.links['links'])
                     self.links.pop(0)
                     
                     for element in result['videos']:
                         for el in element:
-                            self.links.append({"Links": el['link'], "Titel": el['title']})    
+                            self.links.append({"Link": el['link'], "Titel": el['title']})    
 
                     format : dict = self.getInfoDict()
                     if self.logger:
@@ -94,9 +94,9 @@ class Konverter:
                             format["noplaylist"] = False
                         format = yt_dlp.YoutubeDL(format)
 
-                        videosSearch = VideosSearch(link['Links'], limit= 1)
+                        videosSearch = VideosSearch(link['Link'], limit= 1)
                         result : dict | str = videosSearch.result()           
-                        links.append({"Links":result['result'][0]['link'], "Titel":result['result'][0]['title']})
+                        links.append({"Link":result['result'][0]['link'], "Titel":result['result'][0]['title']})
                     
                     self.links.clear()
                     self.links = links
@@ -121,7 +121,7 @@ class Konverter:
                         if self.debug:
                             ic(f"Downloading: {self.links}")
                     
-                        ydl.extract_info(element['Links'])
+                        ydl.extract_info(element['Link'])
 
                     except yt_dlp.utils.DownloadError:
                         return f"Video nicht verfügbar {element}"
@@ -178,13 +178,13 @@ class Konverter:
 if __name__ == "__main__":
     titel = [
     {
-        "Links": "Hells Bells", "Titel": "Hells Bells"
+        "Link": "Hells Bells", "Titel": "Hells Bells"
     },
     {
-        "Links": "Thunderstruck", "Titel": "Thunderstruck"
+        "Link": "Thunderstruck", "Titel": "Thunderstruck"
     },
     {
-        "Links": "Metal Maschine", "Titel": "Metal Maschine"
+        "Link": "Metal Maschine", "Titel": "Metal Maschine"
     }]
        
     myKonv = Konverter(
